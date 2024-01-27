@@ -1,12 +1,15 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import AppNavigator from './src/AppNavigator';
 
-const App = () => {
-  return <AppNavigator />;
+const Signup = () => {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Signup</Text>
+    </View>
+  );
 };
 
-export default App;
+export default Signup;
 
 const styles = StyleSheet.create({
   container: {
