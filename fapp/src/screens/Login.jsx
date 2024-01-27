@@ -7,22 +7,24 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 import {Button} from 'react-native-paper';
+import {Auth} from '@react-native-firebase/auth';
+import {useNavigation} from '@react-navigation/native';
 const Login = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
 
-  const handleLogin = () => {
-    console.log('Login pressed');
-  };
+  const [password, setPassword] = useState('');
+  const navigation = useNavigation();
+
+  const handleLogin = () => {};
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Login</Text>
 
       <TextInput
         style={styles.input}
-        placeholder="Username"
-        value={username}
-        onChangeText={text => setUsername(text)}
+        placeholder="Email"
+        value={email}
+        onChangeText={text => setEmail(text)}
       />
 
       <TextInput
@@ -40,6 +42,14 @@ const Login = () => {
         onPress={() => console.log('Pressed')}>
         Login
       </Button>
+
+      <Text
+        style={styles.link}
+        onPress={() => {
+          navigation.navigate('signup');
+        }}>
+        Create new account?
+      </Text>
     </View>
   );
 };
@@ -72,5 +82,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'blue',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  link: {
+    fontSize: 25,
+    marginTop: 20,
+    textDecorationLine: 'underline',
   },
 });
