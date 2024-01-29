@@ -20,7 +20,7 @@ const Login = () => {
       .then(res => {
         console.log('User account created & signed in!');
         Alert.alert('User account created & signed in!');
-        if (res) navigation.navigate('login');
+        // if (res) navigation.navigate('login');
       })
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {
