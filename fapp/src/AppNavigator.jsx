@@ -12,21 +12,21 @@ const Stack = createStackNavigator();
 const AppNavigator = () => {
   const [user, setUser] = useState();
   console.log(user);
-  const onAuthStateChanged = user => setUser(user);
+  // const onAuthStateChanged = user => setUser(user);
 
-  useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    return subscriber; // unsubscribe on unmount
-  }, []);
+  // useEffect(() => {
+  //   const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+  //   return subscriber; // unsubscribe on unmount
+  // }, []);
   return (
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
           name="splash"
-          component={Splash}
+          component={Home}
           options={{headerShown: false}}
         />
-        {!user ? (
+        {/* {!user ? (
           <>
             <Stack.Screen
               name="signup"
@@ -41,7 +41,7 @@ const AppNavigator = () => {
           </>
         ) : (
           <Stack.Screen name="home" component={Home} />
-        )}
+        )} */}
       </Stack.Navigator>
     </NavigationContainer>
   );
