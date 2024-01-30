@@ -1,108 +1,119 @@
 import {
-  Alert,
-  StyleSheet,
+  View,
   Text,
+  StyleSheet,
   TextInput,
   TouchableOpacity,
-  Button,
-  View,
+  Alert,
 } from 'react-native';
-import React, {useState} from 'react';
-import auth from '@react-native-firebase/auth';
+import React, {useEffect, useState} from 'react';
+import firestore from '@react-native-firebase/firestore';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
+
 const Signup = () => {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [number, setNumber] = useState('');
   const navigation = useNavigation();
-  const handleSubmit = () => {
-    auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then(res => {
-        console.log('User account created & signed in!');
-        Alert.alert('User account created & signed in!');
-        // if (res) navigation.navigate('login');
-      })
-      .catch(error => {
-        if (error.code === 'auth/email-already-in-use') {
-          console.log('That email address is already in use!');
-        }
+  const handleSignup = async () => {
+    const users = await firestore().collection('users').add({
+      name,
+      email,
+      password,
+      number,
+    });
 
-        if (error.code === 'auth/invalid-email') {
-          console.log('That email address is invalid!');
-        }
-
-        console.error(error);
-      });
+    console.log(users);
   };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Signup</Text>
-
       <TextInput
-        style={styles.input}
-        placeholder="Email"
-        value={email}
-        onChangeText={text => setEmail(text)}
+        style={styles.inputStyle}
+        placeholder={'Enter Name'}
+        value={name}
+        onChangeText={txt => setName(txt)}
       />
-
       <TextInput
-        style={styles.input}
-        placeholder="Password"
+        style={styles.inputStyle}
+        placeholder={'Enter Email Id'}
+        value={email}
+        onChangeText={txt => setEmail(txt)}
+      />
+      <TextInput
+        style={styles.inputStyle}
+        placeholder={'Enter Password '}
         secureTextEntry={true}
         value={password}
-        onChangeText={text => setPassword(text)}
+        onChangeText={txt => setPassword(txt)}
       />
-
-      {/* <Button
-        style={styles.btn}
-        mode="text"
-        textColor="white"
-        onPress={handleSubmit}>
-        signup
-      </Button> */}
+      <TextInput
+        style={styles.inputStyle}
+        placeholder={'Enter Number'}
+        keyboardType="number-pad"
+        value={number}
+        onChangeText={txt => setNumber(txt)}
+      />
+      <TouchableOpacity style={styles.loginBtn} onPress={handleSignup}>
+        <Text style={styles.btnText}>signup</Text>
+      </TouchableOpacity>
       <Text
-        style={styles.link}
         onPress={() => {
           navigation.navigate('login');
-        }}>
-        Already have account?
+        }}
+        style={styles.link}>
+        already have account?
       </Text>
     </View>
   );
 };
 
 export default Signup;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 16,
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 16,
+    fontSize: 20,
+    fontWeight: '800',
+    color: '#000',
+    marginTop: 100,
+    alignSelf: 'center',
   },
-  input: {
-    height: 60,
-    width: '100%',
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 12,
-    paddingHorizontal: 8,
+  inputStyle: {
+    paddingLeft: 20,
+    height: 50,
+    alignSelf: 'center',
+    marginTop: 30,
+    borderWidth: 0.5,
+    borderRadius: 10,
+    width: '90%',
   },
-  btn: {
-    height: 60,
-    width: '100%',
-    backgroundColor: 'blue',
+  loginBtn: {
+    backgroundColor: 'orange',
+    width: '90%',
+    height: 50,
+    alignSelf: 'center',
+    borderRadius: 10,
+    marginTop: 50,
     justifyContent: 'center',
     alignItems: 'center',
   },
+  btnText: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#000',
+  },
   link: {
-    fontSize: 25,
-    marginTop: 20,
-    textDecorationLine: 'underline',
+    width: '90%',
+    height: 50,
+    alignSelf: 'center',
+    marginTop: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontSize: 30,
   },
 });

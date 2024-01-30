@@ -1,53 +1,53 @@
 import {
-  StyleSheet,
+  View,
   Text,
+  StyleSheet,
   TextInput,
   TouchableOpacity,
-  View,
-  Button,
 } from 'react-native';
-import React, {useState} from 'react';
-import {Auth} from '@react-native-firebase/auth';
+import React, {useEffect, useState} from 'react';
+import firestore from '@react-native-firebase/firestore';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
+
 const Login = () => {
   const [email, setEmail] = useState('');
-
   const [password, setPassword] = useState('');
   const navigation = useNavigation();
+  const adminLogin = async () => {};
 
-  const handleLogin = () => {};
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Login</Text>
-
       <TextInput
-        style={styles.input}
-        placeholder="Email"
+        style={styles.inputStyle}
+        placeholder={'Enter Email Id'}
         value={email}
-        onChangeText={text => setEmail(text)}
+        onChangeText={txt => setEmail(txt)}
       />
-
       <TextInput
-        style={styles.input}
-        placeholder="Password"
-        secureTextEntry={true}
+        style={styles.inputStyle}
+        placeholder={'Enter Password '}
         value={password}
-        onChangeText={text => setPassword(text)}
+        onChangeText={txt => setPassword(txt)}
       />
-
-      {/* <Button
-        style={styles.btn}
-        mode="text"
-        textColor="white"
-        onPress={() => console.log('Pressed')}>
-        Login
-      </Button> */}
+      <TouchableOpacity
+        style={styles.loginBtn}
+        onPress={() => {
+          if (email !== '' && password !== '') {
+            adminLogin();
+          } else {
+            alert('Please Enter Data');
+          }
+        }}>
+        <Text style={styles.btnText}>Login</Text>
+      </TouchableOpacity>
 
       <Text
-        style={styles.link}
         onPress={() => {
-          // navigation.navigate('signup');rr
-        }}>
+          navigation.navigate('signup');
+        }}
+        style={styles.link}>
         Create new account?
       </Text>
     </View>
@@ -55,37 +55,48 @@ const Login = () => {
 };
 
 export default Login;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 16,
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 16,
+    fontSize: 20,
+    fontWeight: '800',
+    color: '#000',
+    marginTop: 100,
+    alignSelf: 'center',
   },
-  input: {
-    height: 60,
-    width: '100%',
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 12,
-    paddingHorizontal: 8,
+  inputStyle: {
+    paddingLeft: 20,
+    height: 50,
+    alignSelf: 'center',
+    marginTop: 30,
+    borderWidth: 0.5,
+    borderRadius: 10,
+    width: '90%',
   },
-  btn: {
-    height: 60,
-    width: '100%',
-    backgroundColor: 'blue',
+  loginBtn: {
+    backgroundColor: 'orange',
+    width: '90%',
+    height: 50,
+    alignSelf: 'center',
+    borderRadius: 10,
+    marginTop: 50,
     justifyContent: 'center',
     alignItems: 'center',
   },
+  btnText: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#000',
+  },
   link: {
-    fontSize: 25,
-    marginTop: 20,
-    textDecorationLine: 'underline',
+    width: '90%',
+    height: 50,
+    alignSelf: 'center',
+    marginTop: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontSize: 30,
   },
 });

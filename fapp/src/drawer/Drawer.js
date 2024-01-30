@@ -8,7 +8,11 @@ const Drawer = createDrawerNavigator();
 const DrawerNavigator = () => {
   return (
     <Drawer.Navigator>
-      <Drawer.Screen name="main" component={Main} />
+      <Drawer.Screen
+        name="main"
+        component={Main}
+        options={{headerShown: false}}
+      />
     </Drawer.Navigator>
   );
 };
