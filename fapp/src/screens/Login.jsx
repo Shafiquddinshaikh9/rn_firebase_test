@@ -4,6 +4,7 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import firestore from '@react-native-firebase/firestore';
@@ -14,7 +15,35 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigation = useNavigation();
-  const adminLogin = async () => {};
+  const handleLogin = async () => {
+    try {
+      firestore()
+        .collection('users')
+        .where('email', '==', email)
+        .get()
+        .then(querySnapshot => {
+          console.log(querySnapshot);
+          if (querySnapshot.docs[0]._data !== null) {
+            if (
+              querySnapshot.docs[0]._data.email &&
+              querySnapshot.docs[0]._data.password
+            ) {
+              console.log(querySnapshot.docs[0]._data.email);
+              goToNextScreen();
+            } else {
+              Alert.alert('Please check email/password');
+            }
+          }
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const goToNextScreen = async () => {
+    await AsyncStorage.setItem('Email', email);
+    navigation.navigate('details');
+  };
 
   return (
     <View style={styles.container}>
@@ -35,7 +64,7 @@ const Login = () => {
         style={styles.loginBtn}
         onPress={() => {
           if (email !== '' && password !== '') {
-            adminLogin();
+            handleLogin();
           } else {
             alert('Please Enter Data');
           }
