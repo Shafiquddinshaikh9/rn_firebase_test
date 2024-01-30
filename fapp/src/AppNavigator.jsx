@@ -23,9 +23,15 @@ const AppNavigator = () => {
       <Stack.Navigator>
         <Stack.Screen
           name="splash"
+          component={Splash}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="home"
           component={Home}
           options={{headerShown: false}}
         />
+
         {/* {!user ? (
           <>
             <Stack.Screen

@@ -4,9 +4,9 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  Button,
 } from 'react-native';
 import React, {useState} from 'react';
-import {Button} from 'react-native-paper';
 import {Auth} from '@react-native-firebase/auth';
 import {useNavigation} from '@react-navigation/native';
 const Login = () => {
@@ -35,18 +35,18 @@ const Login = () => {
         onChangeText={text => setPassword(text)}
       />
 
-      <Button
+      {/* <Button
         style={styles.btn}
         mode="text"
         textColor="white"
         onPress={() => console.log('Pressed')}>
         Login
-      </Button>
+      </Button> */}
 
       <Text
         style={styles.link}
         onPress={() => {
-          navigation.navigate('signup');
+          // navigation.navigate('signup');rr
         }}>
         Create new account?
       </Text>

@@ -6,7 +6,7 @@ const Splash = () => {
   const navigation = useNavigation();
   useEffect(() => {
     setTimeout(() => {
-      navigation.navigate('login');
+      navigation.navigate('home');
     }, 2000);
   });
   return (

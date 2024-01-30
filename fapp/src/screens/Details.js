@@ -1,15 +1,14 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import DrawerNavigator from '../drawer/Drawer';
 
-const Home = () => {
+const Details = () => {
   return (
-    <View style={{flex: 1}}>
-      <DrawerNavigator />
+    <View>
+      <Text>Details</Text>
     </View>
   );
 };
 
-export default Home;
+export default Details;
 
 const styles = StyleSheet.create({});

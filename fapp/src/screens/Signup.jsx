@@ -4,13 +4,13 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  Button,
   View,
 } from 'react-native';
 import React, {useState} from 'react';
-import {Button} from 'react-native-paper';
 import auth from '@react-native-firebase/auth';
 import {useNavigation} from '@react-navigation/native';
-const Login = () => {
+const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigation = useNavigation();
@@ -53,13 +53,13 @@ const Login = () => {
         onChangeText={text => setPassword(text)}
       />
 
-      <Button
+      {/* <Button
         style={styles.btn}
         mode="text"
         textColor="white"
         onPress={handleSubmit}>
         signup
-      </Button>
+      </Button> */}
       <Text
         style={styles.link}
         onPress={() => {
@@ -71,7 +71,7 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;
 
 const styles = StyleSheet.create({
   container: {
