@@ -1,13 +1,15 @@
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useNavigation} from '@react-navigation/native';
 
 const Details = () => {
   const [user, setUser] = useState('');
-
+  const navigation = useNavigation();
   const logout = async () => {
     await AsyncStorage.removeItem('Email');
     console.log('logout');
+    navigation.navigate('login');
   };
   const getasyncStorage = async () => {
     try {
@@ -20,7 +22,7 @@ const Details = () => {
 
   useEffect(() => {
     getasyncStorage();
-  });
+  }, [user]);
   return (
     <View style={{flex: 1}}>
       <Text style={styles.title}>{user ? user : 'Guest'}</Text>
